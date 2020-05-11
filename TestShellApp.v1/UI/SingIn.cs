@@ -6,6 +6,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -15,33 +16,40 @@ namespace TestShellApp.v1
     public partial class SingIn : Form
     {
         A_n_R_Class users;
+        UserDB Db;
+        User user;
         string filename;
         public SingIn()
         {
             InitializeComponent();
+            users = new A_n_R_Class();
+            Db = new UserDB();
+            user = new User();
+
             
-
-            var filedir = AppDomain.CurrentDomain.BaseDirectory;
-
-            filename = Path.Combine(filedir, "user.bin");
-
-            if (File.Exists(filename))
-                using (var fs = File.OpenRead(filename))
-                    users = (A_n_R_Class)new BinaryFormatter().Deserialize(fs);
-            else
-                users = new A_n_R_Class();
         }
+
+        
 
         private void button2_Click(object sender, EventArgs e)
         {
-            new RegForm().Show();
+            new RegForm(Db.AddUser()).Show();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            Db.LoadJson();
             try
             {
-                users.SingIn(textBox1.Text, textBox2.Text);
+                
+                if (users.SingIn(textBox1.Text, textBox2.Text, Status.Пользователь))
+                {
+                    new MainFormUSer().Show();
+                }
+                else if (users.SingIn(textBox1.Text, textBox2.Text, Status.Администратор))
+                {
+                    new AdminForm().Show();
+                }
             }
             catch(Exception ex)
             {
@@ -49,7 +57,6 @@ namespace TestShellApp.v1
                 return;
             }
 
-            new MainFormUSer().Show();
             this.Hide();
         }
     }

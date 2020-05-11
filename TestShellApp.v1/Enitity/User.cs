@@ -1,27 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace TestShellApp.v1
 {
-    [Serializable]
+    [DataContract]
     public class User
     {
-        public int ID { get; private set; }
+        [DataMember]
+        public int ID { get; set; }
+        [DataMember]
         public string Login { get; set; }
+        [DataMember]
         public string Password { get; set; }
+        [DataMember]
         public Status Status { get; set; }
-
         
-
-        public User(string login, string pass, Status status, int id) 
-        {
-            ID = id;
-            Login = login;
-            Password = pass;
-            Status = status;
-        }
     }
 }

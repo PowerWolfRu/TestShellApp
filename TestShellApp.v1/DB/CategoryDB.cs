@@ -10,7 +10,7 @@ namespace TestShellApp.v1
 {
     public class CategoryDB
     {
-        List<Category> categories;
+        List<Category> categories = new List<Category>();
         int AutoIncrement = 1;
 
         public List<Category> allCategories { get => categories; }

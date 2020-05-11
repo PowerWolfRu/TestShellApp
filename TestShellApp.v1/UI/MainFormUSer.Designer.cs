@@ -30,6 +30,7 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label4 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
@@ -51,7 +52,6 @@
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -85,6 +85,15 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Тесты";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(9, 29);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(60, 13);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "Категория";
             // 
             // button2
             // 
@@ -177,17 +186,17 @@
             // 
             // columnHeader3
             // 
-            this.columnHeader3.Text = "Название";
+            this.columnHeader3.Text = "Наименование теста";
             this.columnHeader3.Width = 222;
             // 
             // columnHeader4
             // 
-            this.columnHeader4.Text = "Категория";
+            this.columnHeader4.Text = "Категория теста";
             this.columnHeader4.Width = 216;
             // 
             // columnHeader5
             // 
-            this.columnHeader5.Text = "Дата";
+            this.columnHeader5.Text = "Дата прохождения";
             this.columnHeader5.Width = 222;
             // 
             // tabPage3
@@ -263,15 +272,6 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 20);
             this.textBox1.TabIndex = 0;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(9, 29);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(60, 13);
-            this.label4.TabIndex = 6;
-            this.label4.Text = "Категория";
             // 
             // MainFormUSer
             // 

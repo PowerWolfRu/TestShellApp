@@ -1,73 +1,62 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace TestShellApp.v1
 {
-    public class UserDB : List<User>
+    public class UserDB
     {
-        Dictionary<int, User> users;
-        Serializer<Dictionary<int, User>> serializer;
-        string filepath;
-        int AutoIncrement = 1;
-
-        static UserDB instance;
-
-        public static UserDB GetInstance()
-        {
-            if (instance == null)
-                instance = new UserDB();
-            return instance;
-        }
-
-        private UserDB()
-        {
-            filepath = "user.bin";
-            serializer = new Serializer<Dictionary<int, User>>(filepath);
-            users = serializer.Load(ref AutoIncrement);
-        }
-
-        public void Save()
-        {
-            serializer.Save(users, AutoIncrement);
-        }
-
-        public void SingUpNewUser(string log, string pass, Status status, int id)
-        {
-            if (this.Any(u => u.Login == log))
-                throw new Exception("Такой логин уже существует");
-            Add(new User(log, pass, status, id));
-        }
-
-        public User GetUserByID(int id)
-        {
-            return users[id];
-        }
+        List<User> users = new List<User>();
+        int autoIncrement = 1;
         
-        public List<User> GetUserByStatus(Status status)
+        public List<User> conrecteUser { get => users; }
+
+        DataContractJsonSerializer json = 
+            new DataContractJsonSerializer(typeof(List<User>));
+
+        public void SaveUser()
         {
-            return users.Where(s => s.Value.Status == status)?.Select(s => s.Value).ToList();
+            using (FileStream fs = new FileStream("user.json", FileMode.Create, FileAccess.Write))
+            {
+                fs.Write(BitConverter.GetBytes(autoIncrement), 0, 4);
+                json.WriteObject(fs, users);
+            }
         }
 
-       public List<User> GetUsers()
-       {
-            return users.Select(s => s.Value)?.ToList();
-       }
-
-        public bool SingIn(string log, string pass)
+        public void LoadJson()
         {
-            var user = this.FirstOrDefault(u => u.Login == log);
-            if (user == null) throw new Exception("Неверный логин");
-
-            if (user.Password != pass) throw new Exception("Неверный пароль");
-
-            return true;
+            using (StreamReader r = new StreamReader("user.json"))
+            {
+                string json = r.ReadToEnd();
+                List<User> users = JsonConvert.DeserializeObject<List<User>>(json);
+                
+            }
         }
-        
 
+        public UserDB()
+        {
+            if (!File.Exists("user.json"))
+                return;
+            using (FileStream fs = new FileStream("user.json", FileMode.Open, FileAccess.Read))
+            {
+                byte[] temp = new byte[4];
+                fs.Read(temp, 0, 4);
+                autoIncrement = BitConverter.ToInt32(temp, 0);
+                users = (List<User>)json.ReadObject(fs);
+            }
+        }
+
+        public User AddUser()
+        {
+            var user = new User { ID = autoIncrement++};
+            users.Add(user);
+            return user;
+        }
     }
 }

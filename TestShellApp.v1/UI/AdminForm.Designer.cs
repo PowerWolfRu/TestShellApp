@@ -38,13 +38,17 @@
             this.button3 = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.button4 = new System.Windows.Forms.Button();
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // listView1
             // 
             this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
-            this.columnHeader2});
+            this.columnHeader2,
+            this.columnHeader3,
+            this.columnHeader4});
             this.listView1.Dock = System.Windows.Forms.DockStyle.Right;
             this.listView1.HideSelection = false;
             this.listView1.Location = new System.Drawing.Point(165, 0);
@@ -57,12 +61,12 @@
             // columnHeader1
             // 
             this.columnHeader1.Text = "Название";
-            this.columnHeader1.Width = 270;
+            this.columnHeader1.Width = 163;
             // 
             // columnHeader2
             // 
             this.columnHeader2.Text = "Категория";
-            this.columnHeader2.Width = 259;
+            this.columnHeader2.Width = 114;
             // 
             // comboBox1
             // 
@@ -128,6 +132,16 @@
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "Дата создания";
+            this.columnHeader3.Width = 123;
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "Дата изменения";
+            this.columnHeader4.Width = 111;
+            // 
             // AdminForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -160,5 +174,7 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.ColumnHeader columnHeader4;
     }
 }

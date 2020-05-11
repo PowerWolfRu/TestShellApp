@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,43 +10,41 @@ namespace TestShellApp.v1
 {
     public class PersonDB
     {
-        List<Person> person;
-        Serializer<List<Person>> serializer;
-
-        string filepath;
-        int AutoIncrement = 1;
-
-        static PersonDB instance;
-
-        public static PersonDB GetInstance()
-        {
-            if (instance == null)
-                instance = new PersonDB();
-            return instance;
-        }
-
-        private PersonDB()
-        {
-            filepath = "person.bin";
-            serializer = new Serializer<List<Person>>(filepath);
-            person = serializer.Load(ref AutoIncrement);
-        }
-
-        public Person CreatePerson(string fname, string sname, string lname)
-        {
-            var persons = new Person(fname, sname, lname);
-            person.Add(persons);
-            return persons;
-        }
+        List<Person> people = new List<Person>();
+        int autoIncrement = 1;
         
-        public void Save()
+        public List<Person> conrectePeople { get => people; }
+
+        DataContractJsonSerializer json =   
+            new DataContractJsonSerializer(typeof(List<Person>));
+
+        public void SavePerson()
         {
-            serializer.Save(person, AutoIncrement);
+            using (FileStream fs = new FileStream("person.json", FileMode.Create, FileAccess.Write))
+            {
+                fs.Write(BitConverter.GetBytes(autoIncrement), 0, 4);
+                json.WriteObject(fs, people);
+            }
         }
 
-        public List<Person> GetPerson()
+        public PersonDB()
         {
-            return person.Select(s => s)?.ToList();
+            if (!File.Exists("person.json"))
+                return;
+            using (FileStream fs = new FileStream("person.json", FileMode.Open, FileAccess.Read))
+            {
+                byte[] temp = new byte[4];
+                fs.Read(temp, 0, 4);
+                autoIncrement = BitConverter.ToInt32(temp, 0);
+                people = (List<Person>)json.ReadObject(fs); 
+            }
+        }
+
+        public Person AddPerson()
+        {
+            var peoples = new Person { ID = autoIncrement++ };
+            people.Add(peoples);
+            return peoples;
         }
     }
 }

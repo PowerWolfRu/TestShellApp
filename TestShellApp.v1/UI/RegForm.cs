@@ -14,41 +14,37 @@ namespace TestShellApp.v1
 {
     public partial class RegForm : Form
     {
-        Person person;
-        A_n_R_Class users;
-        public RegForm(Person person)
+        User users;
+        UserDB db;
+        
+        public RegForm(User user)
         {
             InitializeComponent();
+            db = new UserDB();
+            this.users = user;
+            textBox4.Text = user.Login;
+            textBox5.Text = user.Password;
+            comboBox1.DataSource = typeof(Status).GetEnumValues(); 
 
-            this.person = person;
-            
-            users = new A_n_R_Class();
-
-            textBox1.Text = person.Fname;
-            textBox2.Text = person.Sname;
-            textBox3.Text = person.Lname;
-            comboBox1.DataSource = typeof(Status).GetEnumValues();
-            
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (person == null)
-                person = PersonDB.GetInstance().CreatePerson(textBox1.Text, textBox2.Text, textBox3.Text);
-            person.Fname = textBox1.Text;
-            person.Sname = textBox2.Text;
-            person.Lname = textBox3.Text;
-            
             try
             {
-                users.SingUpNewUser(textBox4.Text, textBox5.Text);
-                
-            catch(Exception ex)
+                users.Login = textBox4.Text;
+                users.Password = textBox5.Text;
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-                Close();
             }
-           
+            db.SaveUser();
+            this.Close();
+        }
+
+        private void RegForm_Load(object sender, EventArgs e)
+        {
 
         }
     }
