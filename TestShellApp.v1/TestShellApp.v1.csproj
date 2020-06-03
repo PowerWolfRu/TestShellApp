@@ -55,17 +55,26 @@
     <Compile Include="AnR\A-n-R_Class.cs" />
     <Compile Include="DB\CategoryDB.cs" />
     <Compile Include="DB\PersonDB.cs" />
+    <Compile Include="DB\TestDB.cs" />
     <Compile Include="DB\UserDB.cs" />
     <Compile Include="Enitity\Admin.cs" />
+    <Compile Include="Enitity\ArrayTests.cs" />
     <Compile Include="Enitity\Category.cs" />
     <Compile Include="Enitity\Person.cs" />
     <Compile Include="Enitity\Status.cs" />
     <Compile Include="Enitity\User.cs" />
+    <Compile Include="Tests\Test.cs" />
     <Compile Include="UI\AdminForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UI\AdminForm.Designer.cs">
       <DependentUpon>AdminForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\AdminSingIn.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\AdminSingIn.Designer.cs">
+      <DependentUpon>AdminSingIn.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\CategoryForm.cs">
       <SubType>Form</SubType>
@@ -78,6 +87,12 @@
     </Compile>
     <Compile Include="UI\FormAddCategories.Designer.cs">
       <DependentUpon>FormAddCategories.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\FormTestAdd.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\FormTestAdd.Designer.cs">
+      <DependentUpon>FormTestAdd.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\MainFormUSer.cs">
       <SubType>Form</SubType>
@@ -99,6 +114,12 @@
     <Compile Include="UI\RegForm.Designer.cs">
       <DependentUpon>RegForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\TestForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\TestForm.Designer.cs">
+      <DependentUpon>TestForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\TestConstructor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -108,11 +129,17 @@
     <EmbeddedResource Include="UI\AdminForm.resx">
       <DependentUpon>AdminForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\AdminSingIn.resx">
+      <DependentUpon>AdminSingIn.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\CategoryForm.resx">
       <DependentUpon>CategoryForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\FormAddCategories.resx">
       <DependentUpon>FormAddCategories.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\FormTestAdd.resx">
+      <DependentUpon>FormTestAdd.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\MainFormUSer.resx">
       <DependentUpon>MainFormUSer.cs</DependentUpon>
@@ -131,6 +158,9 @@
     </Compile>
     <EmbeddedResource Include="UI\RegForm.resx">
       <DependentUpon>RegForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\TestForm.resx">
+      <DependentUpon>TestForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\TestConstructor.resx">
       <DependentUpon>TestConstructor.cs</DependentUpon>

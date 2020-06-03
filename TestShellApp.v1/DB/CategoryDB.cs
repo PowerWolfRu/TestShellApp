@@ -18,6 +18,14 @@ namespace TestShellApp.v1
         DataContractJsonSerializer json =
             new DataContractJsonSerializer(typeof(List<Category>));
 
+        public static CategoryDB instance;
+
+        public static CategoryDB GetInstance()
+        {
+            if (instance == null)
+                instance = new CategoryDB();
+            return instance;
+        }
         public void SaveCategories()
         {
             using (FileStream fs = new FileStream("category.json", FileMode.Create, FileAccess.Write))
@@ -38,6 +46,13 @@ namespace TestShellApp.v1
                 AutoIncrement = BitConverter.ToInt32(temp, 0);
                 categories = (List<Category>)json.ReadObject(fs);
             }
+        }
+
+        public Category GetCategoryByID(int id) => categories[id];
+
+        public List<Category> GetCategories()
+        {
+            return categories.Select(s => s)?.ToList();
         }
 
         public Category AddCategory()

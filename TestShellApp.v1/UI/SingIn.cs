@@ -18,7 +18,7 @@ namespace TestShellApp.v1
         A_n_R_Class users;
         UserDB Db;
         User user;
-        string filename;
+        
         public SingIn()
         {
             InitializeComponent();
@@ -57,6 +57,12 @@ namespace TestShellApp.v1
                 return;
             }
 
+            this.Hide();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            new AdminSingIn().ShowDialog();
             this.Hide();
         }
     }

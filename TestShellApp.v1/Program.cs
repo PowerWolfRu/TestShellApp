@@ -16,7 +16,7 @@ namespace TestShellApp.v1
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new SingIn());
+            Application.Run(new AdminForm());
         }
     }
 }

@@ -17,6 +17,7 @@ namespace TestShellApp.v1
         {
             InitializeComponent();
             db = new CategoryDB();
+            ShowCategories();
         }
 
         private void добавитьToolStripMenuItem_Click(object sender, EventArgs e)
@@ -44,7 +45,6 @@ namespace TestShellApp.v1
                 ListViewItem row = new ListViewItem(category.Name);
                 row.Tag = category;
                 listView1.Items.Add(row);
-
             }
         }
 
@@ -59,5 +59,11 @@ namespace TestShellApp.v1
                 ShowCategories();
             }
         }
-    }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            db.SaveCategories();
+            MessageBox.Show("Категории успешно сохранены");
+        }
+    }   
 }

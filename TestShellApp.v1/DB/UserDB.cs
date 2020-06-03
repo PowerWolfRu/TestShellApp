@@ -8,6 +8,8 @@ using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading.Tasks;
 
+
+
 namespace TestShellApp.v1
 {
     public class UserDB
@@ -31,12 +33,7 @@ namespace TestShellApp.v1
 
         public void LoadJson()
         {
-            using (StreamReader r = new StreamReader("user.json"))
-            {
-                string json = r.ReadToEnd();
-                List<User> users = JsonConvert.DeserializeObject<List<User>>(json);
-                
-            }
+            
         }
 
         public UserDB()

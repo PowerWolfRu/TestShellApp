@@ -31,6 +31,8 @@
             this.listView1 = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
@@ -38,8 +40,6 @@
             this.button3 = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.button4 = new System.Windows.Forms.Button();
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // listView1
@@ -68,8 +68,19 @@
             this.columnHeader2.Text = "Категория";
             this.columnHeader2.Width = 114;
             // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "Дата создания";
+            this.columnHeader3.Width = 123;
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "Дата изменения";
+            this.columnHeader4.Width = 111;
+            // 
             // comboBox1
             // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(12, 49);
             this.comboBox1.Name = "comboBox1";
@@ -93,6 +104,7 @@
             this.button1.TabIndex = 3;
             this.button1.Text = "Применить фильтр";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -109,8 +121,9 @@
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(146, 23);
             this.button3.TabIndex = 5;
-            this.button3.Text = "Конструктор тестов";
+            this.button3.Text = "Создать тест";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // checkBox1
             // 
@@ -121,6 +134,7 @@
             this.checkBox1.TabIndex = 6;
             this.checkBox1.Text = "Фильтр";
             this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // button4
             // 
@@ -131,16 +145,6 @@
             this.button4.Text = "Список категорий";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
-            // 
-            // columnHeader3
-            // 
-            this.columnHeader3.Text = "Дата создания";
-            this.columnHeader3.Width = 123;
-            // 
-            // columnHeader4
-            // 
-            this.columnHeader4.Text = "Дата изменения";
-            this.columnHeader4.Width = 111;
             // 
             // AdminForm
             // 

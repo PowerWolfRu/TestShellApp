@@ -11,8 +11,6 @@ namespace TestShellApp.v1
     [Serializable]
     public class A_n_R_Class : List<User>
     {
-        
-
         public bool SingIn(string log, string pass, Status status)
         {
             var user = this.FirstOrDefault(u => u.Login == log);
@@ -21,9 +19,10 @@ namespace TestShellApp.v1
 
             if (user.Password != pass) throw new Exception("Неверный пароль");
 
+
+
             return true;
         }
 
-        
     }
 }
