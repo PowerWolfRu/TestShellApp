@@ -12,48 +12,25 @@ using System.Threading.Tasks;
 
 namespace TestShellApp.v1
 {
-    public class UserDB
+    [Serializable]
+    public class UserDB : List<User>
     {
-        List<User> users = new List<User>();
-        int autoIncrement = 1;
-        
-        public List<User> conrecteUser { get => users; }
-
-        DataContractJsonSerializer json = 
-            new DataContractJsonSerializer(typeof(List<User>));
-
-        public void SaveUser()
+        public bool SingIn(string login, string password)
         {
-            using (FileStream fs = new FileStream("user.json", FileMode.Create, FileAccess.Write))
-            {
-                fs.Write(BitConverter.GetBytes(autoIncrement), 0, 4);
-                json.WriteObject(fs, users);
-            }
+            var user = this.FirstOrDefault(u => u.Login == login);
+            if(user == null)
+                throw new Exception("Такого пользователя не существует");
+            if (user.PasswordHash != password.GetHashCode()) throw new Exception("Неправильный пароль");
+
+            return true;
         }
 
-        public void LoadJson()
+        public void SingUp(string login, string password)
         {
-            
-        }
+            if (this.Any(u => u.Login == login))
+                throw new Exception("Пользователь с таким именем уже существует");
 
-        public UserDB()
-        {
-            if (!File.Exists("user.json"))
-                return;
-            using (FileStream fs = new FileStream("user.json", FileMode.Open, FileAccess.Read))
-            {
-                byte[] temp = new byte[4];
-                fs.Read(temp, 0, 4);
-                autoIncrement = BitConverter.ToInt32(temp, 0);
-                users = (List<User>)json.ReadObject(fs);
-            }
-        }
-
-        public User AddUser()
-        {
-            var user = new User { ID = autoIncrement++};
-            users.Add(user);
-            return user;
+            Add(new User(login, password));
         }
     }
 }

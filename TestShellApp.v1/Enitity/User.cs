@@ -7,17 +7,16 @@ using System.Threading.Tasks;
 
 namespace TestShellApp.v1
 {
-    [DataContract]
+    [Serializable]
     public class User
     {
-        [DataMember]
-        public int ID { get; set; }
-        [DataMember]
         public string Login { get; set; }
-        [DataMember]
-        public string Password { get; set; }
-        [DataMember]
-        public Status Status { get; set; }
+        public int PasswordHash { get; set; }    
         
+        public User(string log, string pass)
+        {
+            Login = log;
+            PasswordHash = pass.GetHashCode();
+        }
     }
 }

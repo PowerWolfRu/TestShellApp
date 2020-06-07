@@ -8,77 +8,73 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace TestShellApp.v1
 {
     public partial class TestConstructor : Form
     {
-        Test test;
-        List<string> Question = new List<string>();
-        string[] answer;
-        int i = 0;
-        public TestConstructor()
+        XmlTextWriter TestWriter;
+        int count;
+        public TestConstructor(int c, XmlTextWriter writer)
         {
             InitializeComponent();
-            FileInfo[] infos = 
-                new DirectoryInfo(Environment.CurrentDirectory).
-                GetFiles("*.txt", SearchOption.AllDirectories);
-            test = new Test();
+            TestWriter = writer;
+            count = c;
 
-            ShowCategory();
-            comboBox2.DataSource = infos; 
+            this.Text = "Создание вопроса №" + count;
+
+
         }
 
-
-        void ShowCategory()
-        {
-            comboBox1.DataSource = CategoryDB.GetInstance().GetCategories();
-            comboBox1.DisplayMember = "Name";
-        }
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void TestConstructor_Load(object sender, EventArgs e)
         {
 
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void TestConstructor_FormClosing(object sender, FormClosingEventArgs e)
         {
-            StreamWriter sm = new StreamWriter(comboBox2.SelectedItem.ToString());
-            for (int i = 0; i < Question.Count; i++)
+            if(e.CloseReason == CloseReason.UserClosing)
             {
-                sm.WriteLine(Question[i]);
+                Application.Exit();
             }
-            sm.Close();
         }
 
-        string GetString()
+        private void NextQuest_Click(object sender, EventArgs e)
         {
-            answer = Question[i].Split('^');
-            i++;
-            return answer[1];
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            string a = string.Empty;
-            if (textBox4.Text != "")
+            if (QuestBox.Text != "" && AnswBox1.Text != "" && AnswBox2.Text != ""
+                && AnswBox3.Text != "" && AnswBox4.Text != "" && RightAnswBox.Text != "")
             {
-                a = textBox1.Text + "^" + textBox2.Text + "^" + textBox3.Text + "^" + textBox4.Text + "^";
+                if (RightAnswBox.Text == AnswBox1.Text || RightAnswBox.Text == AnswBox2.Text ||
+                    RightAnswBox.Text == AnswBox3.Text || RightAnswBox.Text == AnswBox4.Text)
+                {
+                    TestWriter.WriteStartElement("quest" + count);
+
+                    TestWriter.WriteStartAttribute("text");
+                    TestWriter.WriteString(QuestBox.Text);
+                    TestWriter.WriteEndAttribute();
+
+                    TestWriter.WriteStartAttribute("right");
+                    TestWriter.WriteString(RightAnswBox.Text);
+                    TestWriter.WriteEndAttribute();
+
+                    TestWriter.WriteStartElement("answers");
+                    TestWriter.WriteString(AnswBox1.Text + "|" + AnswBox2.Text + "|" + AnswBox3.Text + "|" + AnswBox4.Text);
+                    TestWriter.WriteEndElement();
+
+                    TestWriter.WriteEndElement();
+
+                    this.Dispose();
+                }
+                else
+                {
+                    MessageBox.Show("Правильный ответ не совпадает с одним вариантов ответа!\n\nСкопируйте правильный овтет в соответсвующее поле");
+                }
             }
             else
             {
-                a = textBox1.Text + "^" + textBox2.Text + "^" + textBox3.Text + "^" + textBox4.Text + "^";
-            }
-            Question.Add(a);
-
-            if(textBox1.Text != "" && textBox2.Text != "" && textBox3.Text != "" && textBox4.Text != "")
-            {
-                textBox1.Clear();
-                textBox2.Clear();
-                textBox3.Clear();
-                textBox4.Clear();
+                MessageBox.Show("Заполните все поля!", "Внимание");
             }
         }
-
-        
     }
 }

@@ -15,40 +15,36 @@ namespace TestShellApp.v1
 {
     public partial class SingIn : Form
     {
-        A_n_R_Class users;
-        UserDB Db;
-        User user;
-        
+        UserDB users;
+        string FileName;
         public SingIn()
         {
             InitializeComponent();
-            users = new A_n_R_Class();
-            Db = new UserDB();
-            user = new User();
+            var filedir = AppDomain.CurrentDomain.BaseDirectory;
 
-            
-        }
+            FileName = Path.Combine(filedir, "users.bin");
 
-        
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            new RegForm(Db.AddUser()).Show();
+            if (File.Exists(FileName))
+                using (var fs = File.OpenRead(FileName))
+                    users = (UserDB)new BinaryFormatter().Deserialize(fs);
+            else
+                users = new UserDB();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Db.LoadJson();
             try
             {
-                
-                if (users.SingIn(textBox1.Text, textBox2.Text, Status.Пользователь))
+                if(checkBox1.Checked)
                 {
-                    new MainFormUSer().Show();
+                    users.SingUp(textBox1.Text, textBox2.Text);
+
+                    using (var fs = File.OpenWrite(FileName))
+                        new BinaryFormatter().Serialize(fs, users);
                 }
-                else if (users.SingIn(textBox1.Text, textBox2.Text, Status.Администратор))
+                else
                 {
-                    new AdminForm().Show();
+                    users.SingIn(textBox1.Text, textBox2.Text);
                 }
             }
             catch(Exception ex)
@@ -57,7 +53,8 @@ namespace TestShellApp.v1
                 return;
             }
 
-            this.Hide();
+            this.Visible = false;
+            new MainFormUSer().Show();
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -65,5 +62,9 @@ namespace TestShellApp.v1
             new AdminSingIn().ShowDialog();
             this.Hide();
         }
+
+
+
+
     }
 }
