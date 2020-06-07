@@ -45,7 +45,7 @@ namespace TestShellApp.v1
         void ReadNumbers()
         {
             do xmlReader.Read();
-            while (xmlReader.Name != "Questions");
+            while (xmlReader.Name != "Questions" && !xmlReader.EOF);
 
             nQuest = Convert.ToInt32(xmlReader.GetAttribute("Nums"));
             xmlReader.Read();
@@ -59,7 +59,7 @@ namespace TestShellApp.v1
             else
             {
                 do xmlReader.Read();
-                while (xmlReader.Name != "quest" + position);
+                while (xmlReader.Name != "quest" + position && !xmlReader.EOF);
 
                 if(xmlReader.Name == "quest" + position)
                 {
@@ -68,7 +68,7 @@ namespace TestShellApp.v1
                     xmlReader.Read();
 
                     do xmlReader.Read();
-                    while (xmlReader.Name != "answers");
+                    while (xmlReader.Name != "answers" && !xmlReader.EOF);
 
                     xmlReader.Read();
 
@@ -94,7 +94,7 @@ namespace TestShellApp.v1
             radioButton3.Text = answ[2];
             radioButton4.Text = answ[3];
 
-            button2.Enabled = false;
+            //button2.Enabled = false;
         }
 
         void Checked()

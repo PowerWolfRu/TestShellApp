@@ -23,6 +23,7 @@ namespace TestShellApp.v1
             if(textBox1.Text == log && textBox2.Text == pass)
             {
                 new AdminForm().Show();
+                this.Visible = false;
             }
         }
     }

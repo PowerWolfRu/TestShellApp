@@ -16,10 +16,13 @@ namespace TestShellApp.v1
     {
         XmlReader reader;
         DirectoryInfo TestDir = new DirectoryInfo("Tests");
+        PersonDB db;
         public MainFormUSer()
         {
             InitializeComponent();
-           
+
+            db = new PersonDB();
+            ShowPersonInfo();
 
             comboBox1.Items.AddRange(TestDir.GetDirectories()); 
         }
@@ -77,6 +80,20 @@ namespace TestShellApp.v1
                 //testForm.Show();
                 new TestForm(xmlpath, textBox1.Text, ThemeLable.Text).Show();
             }
+        }
+
+        void ShowPersonInfo()
+        {
+            textBox2.Text = db.person_info.LastName;
+            textBox3.Text = db.person_info.FirstName;
+            textBox4.Text = db.person_info.SecondName;
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            new FormPersonAddInfo(db.person_info).ShowDialog();
+            ShowPersonInfo();
+            db.SavePerson();
         }
     }
 }

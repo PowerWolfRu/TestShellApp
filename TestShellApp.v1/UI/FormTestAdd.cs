@@ -54,7 +54,7 @@ namespace TestShellApp.v1
                 TestWriter.WriteString(ThemeBox.Text);
                 TestWriter.WriteEndElement();
 
-                TestWriter.WriteStartElement("Quesitons");
+                TestWriter.WriteStartElement("Questions");
                 TestWriter.WriteStartAttribute("Nums");
                 TestWriter.WriteString(NumQuestUpDwn.Value.ToString());
                 TestWriter.WriteEndAttribute();
