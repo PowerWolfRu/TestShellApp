@@ -55,5 +55,10 @@ namespace TestShellApp.v1
             ShowAdminInfo();
             db.SaveAdmin();
         }
+
+        private void AdminForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }

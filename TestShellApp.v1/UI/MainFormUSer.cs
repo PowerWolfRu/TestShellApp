@@ -95,5 +95,10 @@ namespace TestShellApp.v1
             ShowPersonInfo();
             db.SavePerson();
         }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }
